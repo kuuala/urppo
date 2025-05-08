@@ -1,10 +1,12 @@
 import requests
 import sys
 
+IPWHO = "https://ipwho.is/"
+
 def get_weather_api_url(city):
     return f"https://wttr.in/{city}?format=1"
 
-def weather_api(city):
+def get_weather(city):
     try:
         response = requests.get(get_weather_api_url(city))
         if response.status_code == 200:
@@ -17,9 +19,9 @@ def weather_api(city):
         print(f"Failed to get weather for city: {e}")
         return None
     
-def city_api():
+def get_city_by_ip():
     try:
-        response = requests.get("https://ipwho.is/")
+        response = requests.get(IPWHO)
         data = response.json()
         return data.get("city")
     except Exception as e:
@@ -31,11 +33,11 @@ def main():
     if len(sys.argv) == 2:
         city = sys.argv[1]
     else:
-        city = city_api()
+        city = get_city_by_ip()
         if city == None:
-            print("Failed to retrieve city data, city is {city}")
+            print(f"Failed to retrieve city data, city is {city}")
             return
-    weather_api_response = weather_api(city)
+    weather_api_response = get_weather(city)
     if weather_api_response:
         print(f"Weather in {city}: {weather_api_response}")
     else:
