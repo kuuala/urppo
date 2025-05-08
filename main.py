@@ -11,7 +11,16 @@ def weather_api(city):
             print(f"Error: {response.status_code}")
             return None
     except Exception as e:
-        print(f"Error while getting weather: {e}")
+        print(f"Failed to get weather: {e}")
+        return None
+    
+def city_api():
+    try:
+        response = requests.get("https://ipwho.is/")
+        data = response.json()
+        return data.get("city")
+    except Exception as e:
+        print(f"Failed to get city: {e}")
         return None
     
     
@@ -19,7 +28,10 @@ def main():
     if len(sys.argv) == 2:
         city = sys.argv[1]
     else:
-        city = "Tomsk"
+        city = city_api()
+        if city == None:
+            print("Failed to retrieve city data")
+            return
     weather_api_response = weather_api(city)
     if weather_api_response:
         print(f"Weather in {city}: {weather_api_response}")
