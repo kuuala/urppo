@@ -1,9 +1,12 @@
 import requests
 import sys
 
+def get_weather_api_url(city):
+    return f"https://wttr.in/{city}?format=1"
+
 def weather_api(city):
     try:
-        response = requests.get(f"https://wttr.in/{city}?format=1")
+        response = requests.get(get_weather_api_url(city))
         if response.status_code == 200:
             weather_data = response.text
             return weather_data
