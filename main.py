@@ -30,13 +30,13 @@ def main():
     else:
         city = city_api()
         if city == None:
-            print("Failed to retrieve city data")
+            print("Failed to retrieve city data, city is {city}")
             return
     weather_api_response = weather_api(city)
     if weather_api_response:
         print(f"Weather in {city}: {weather_api_response}")
     else:
-        print("Failed to retrieve weather data")
+        print("Failed to retrieve weather data for city {city}")
     
 if __name__ == "__main__":
     main()
