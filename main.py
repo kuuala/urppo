@@ -11,7 +11,7 @@ def weather_api(city):
             print(f"Error: {response.status_code}")
             return None
     except Exception as e:
-        print(f"Failed to get weather: {e}")
+        print(f"Failed to get weather for city: {e}")
         return None
     
 def city_api():
