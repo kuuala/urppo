@@ -1,4 +1,5 @@
 import requests
+import sys
 
 def weather_api(city):
     try:
@@ -15,9 +16,13 @@ def weather_api(city):
     
     
 def main():
-    weather_api_response = weather_api("Tomsk")
+    if len(sys.argv) == 2:
+        city = sys.argv[1]
+    else:
+        city = "Tomsk"
+    weather_api_response = weather_api(city)
     if weather_api_response:
-        print(f"Weather in Tomsk: {weather_api_response}")
+        print(f"Weather in {city}: {weather_api_response}")
     else:
         print("Failed to retrieve weather data")
     
